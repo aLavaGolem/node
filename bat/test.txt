@@ -1,0 +1,12 @@
+## for
+@echo off
+setlocal enabledelayedexpansion
+set  did=200394267
+for /l %%i in (200053669 1 200053685) do (
+    for /l %%j in (0 1 2) do (
+        echo "node run.js %%i !did!"   
+        start cmd /k  "node run.js %%i !did!"
+        set /a did+=1
+        ping -n 120 0.0.0.0 1>nul 2>nul
+    )
+)
