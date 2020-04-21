@@ -1,0 +1,30 @@
+﻿#查看空间使用情况
+df -h
+#安装jdk-1.8
+yum -y install java-1.8*
+#查看java版本
+java -version
+#下载tomcat
+wget http://mirrors.shu.edu.cn/apache/tomcat/tomcat-8/v8.5.37/bin/apache-tomcat-8.5.37.tar.gz
+#解压
+tar -zxvf apache-tomcat-8.5.49.tar.gz
+#查看端口
+netstat -ntlp
+
+#spring boot RESTful
+git clone https://github.com/lihengming/spring-boot-api-project-seed.git
+
+#设置虚拟机网络
+https://blog.csdn.net/qq_23033339/article/details/80867195
+
+sudo yum install docker-ce-19.03.7 docker-ce-cli-19.03.7 containerd.io
+
+
+sudo systemctl start docker
+
+#共享文件
+https://blog.csdn.net/liu_shi_jun/article/details/77951959
+
+
+
+

@@ -1,0 +1,85 @@
+##配置文件
+systemLog:
+    destination: file
+    path: d:\data\log\mongod.log
+storage:
+    dbPath: d:\data\db
+security:
+  authorization: enabled
+  
+##创建数据库
+use db_open_tlink
+
+##验证
+db.auth('open_user!Link','open_user!2+3=5')
+db.auth('root','root')
+
+##添加用户
+use admin
+db.createUser({ user:'open_user!Link', pwd:'open_user!2+3=5', roles:[{role:'dbAdmin',db:'db_open_tlink'}] })
+db.createUser({ user:'root', pwd:'root', roles:[{role:'root',db:'admin'}] })
+db.createUser({ user:'open_user!Link', pwd:'open_user!2+3=5', roles:[{role:'root',db:'admin'}] })
+db.createUser({ user:'open_user!Link', pwd:'open_user!2+3=5', roles:[{role:'readWrite',db:'db_open_tlink'},{role:'dbAdmin',db:'db_open_tlink'}] })
+
+
+##删除当前下用户
+db.dropUser("open_user!Link")
+##删除当前库的所有用户
+db.dropAllUser("open_user!Link")  
+##查看所有用户
+use admin
+db.system.users.find().pretty()      
+
+##创建集合
+db.createCollection("runoob")
+
+##删除集合
+db.runoob.drop()
+
+##查询已有集合
+show collections
+
+##插入文档
+db.col.insert({title: 'MongoDB 教程', 
+    description: 'MongoDB 是一个 Nosql 数据库',
+    by: '菜鸟教程',
+    url: 'http://www.runoob.com',
+    tags: ['mongodb', 'database', 'NoSQL'],
+    likes: 100
+})
+
+##查询文档
+db.col.find()
+
+##定义变量
+document=({title: 'MongoDB 教程', 
+    description: 'MongoDB 是一个 Nosql 数据库',
+    by: '菜鸟教程',
+    url: 'http://www.runoob.com',
+    tags: ['mongodb', 'database', 'NoSQL'],
+    likes: 100
+});
+
+##插入变量
+db.col.insert(document)
+
+####
+db.T_NSENDATA_200052238.insert({
+	addlongtime: 20200325110230, 
+	addtime: '2020-03-25 11:02:30', 
+    sensortypeid: 200383169,
+    sensortypeid: 1,
+	val:1,
+	switcher:1,
+	lng:1,
+	lat:1
+})
+db.T_NSENDATA_200052238.find().pretty()
+
+
+
+# 查询
+db.getCollection('T_NSENDATA_200053669').find({sensorid:NumberLong(200394267),addtime:{$gte:ISODate("2020-03-18T00:00:00.000Z"),$lte:ISODate("2020-04-17T00:00:00.000Z")}}).sort({addtime:1}).limit(3000000)
+
+# 添加索引
+db.getCollection('T_NSENDATA_200053669').ensureIndex({addtime:1},{backgroud:true})
